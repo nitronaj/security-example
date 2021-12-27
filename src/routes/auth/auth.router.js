@@ -15,13 +15,16 @@ authRouter.get(
   passport.authenticate('google', {
     failureRedirect: '/failure',
     successRedirect: '/',
-    session: false,
+    session: true,
   }),
   (req, res) => {
     console.log('Google called us back!');
   }
 );
 
-authRouter.get('/logout', (req, res) => {});
+authRouter.get('/logout', (req, res) => {
+  req.logout(); // Removes req.user and clears any logged in session
+  return res.redirect('/');
+});
 
 module.exports = authRouter;

@@ -8,7 +8,7 @@ const api = express.Router();
 api.use('/auth', authRouter);
 
 function checkLoggedIn(req, res, next) {
-  const isLoggedIn = true;
+  const isLoggedIn = req.isAuthenticated() && !!req.user;
   if (!isLoggedIn) {
     return res.status(401).json({
       error: 'you must log in',
